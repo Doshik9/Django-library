@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+
+  web-library-container:
+    # исходный образ для сборки
+    image: web-library
+
+    # «пробрасываемые» порты внутрь контейнера сервиса
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    # основная команда запуска сервиса
+    command: python manage.py runserver 0.0.0.0:8000
+
+    # присоединенные папки вне контейнера
+    volumes:
+      - C:/Users/Daria/NewPycharmProjects/library_project/templates:/usr/src/app/library_project/templates
+
+    # явный порядок запуска контейнеров
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    volumes:
+      - ./dev/var/postgres_data:/var/lib/postgresql/data/
+
+    # переменные окружения
+    environment:
+      POSTGRES_DB: "library_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"

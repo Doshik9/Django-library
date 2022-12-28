@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'about.html' %}
+
+{% block content %}
+<br>
+<h1>BOOKSHELF</h1>
+<div>
+    {% if books %}
+    <ul>
+        {% for book in books %}
+        <li>
+            <p><strong>Book:</strong> {{ book.book_name }}</p>
+            {% if book.author %}
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            {% endif %}
+            {% if book.genre_type_id %}
+            <p><strong>Genre:</strong> {{ book.genre_type_id }}</p>
+            {% endif %}
+            {% if book.publisher %}
+            <p><strong>Publisher:</strong> {{ book.publisher }}</p>
+            {% endif %}
+            {% if book.publication_date %}
+            <p><strong>Publication date:</strong> {{ book.publication_date }}</p>
+            {% endif %}
+            <br>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h2>NO BOOKS? :(</h2>
+    {% endif %}
+</div>
+{% endblock %}
+</body>
+</html>
